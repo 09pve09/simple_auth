@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-
-const Header = () => <h1>Header</h1>
-const Dashboard = () => <h1>Dashboard</h1>
-const Content1 = () => <h1>Content1</h1>
-const Landing = () => <h1>Landing</h1>
+import Header from './Header';
+import Login from './Login';
+import Signup from './Signup';
+import Dashboard from './Dashboard';
 
 
 const App =  () => {
@@ -13,8 +12,9 @@ const App =  () => {
       <BrowserRouter>
         <div>
           <Header />
-          <Route exact path='/' component={Landing} />
-          <Route path='/dashboard' component={Dashboard} />
+          <Route exact path='/login' component={ Login } />
+          <Route exact path='/signup' component={ Signup } />
+          <Route exact path='/' component={ Dashboard } />
         </div>
       </BrowserRouter>
     </div>
