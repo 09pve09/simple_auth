@@ -1,11 +1,16 @@
 import React, { Component  } from 'react';
 
 class Step3 extends Component {
+  
+  componentWillUnmount(){
+    this.props.triggerStateResetRef()
+  }
+
   render(){
     return(
       <div className="input-field s12">
-          <input id="icon_telephone" type="tel" className="validate"/>
-          <label for="icon_telephone">Telephone</label>
+          <input id="phone" type="tel" className="validate" onChange={this.props.triggerStateUpdateRef}/>
+          <label for="phone">Phone Number</label>
       </div>
     );
   }

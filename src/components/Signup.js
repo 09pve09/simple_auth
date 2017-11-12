@@ -7,17 +7,24 @@ import Step2 from './Step2_signup';
 import Step3 from './Step3_signup';
 
 function CheckForStep2(props) {
-  if (props.first_name.length > 0 && props.last_name.length > 0 && props.email.length > 0 && props.password.length > 0) {
-    return <Step2 triggerStateupdate={this.updateState}/>
+  if (props.first_name !== "" && props.last_name !== "" && props.email !== "" && props.password !== "") {
+    return <Step2 triggerStateUpdateRef={props.triggerStateUpdateRef} triggerStateResetRef={props.triggerStateResetRef}/>
   }
   return <div></div>
 }
 
 function CheckForStep3(props) {
-  if (props.first_name !== "" && props.last_name !== "" && props.email !== "" && props.password !== "" && props.birthday !== "") {
-    return <Step3 />
+  if (props.first_name !== "" && props.last_name !== "" && props.email !== "" && props.password !== "" && props.title !== "") {
+    return <Step3 triggerStateUpdateRef={props.triggerStateUpdateRef} triggerStateResetRef={props.triggerStateResetRef}/>
   }
   return <div></div>
+}
+
+function CheckForSubmit(props) {
+  if (props.first_name !== "" && props.last_name !== "" && props.email !== "" && props.password !== "" && props.title !== "" && props.phone !== "") {
+    return <input type="submit" className="btn" value="Sign Up"/>
+  }
+  return <input type="submit" className="btn disabled" value="Sign Up"/>
 }
 
 
@@ -31,16 +38,12 @@ class Signup extends Component {
       'last_name': '',
       'email': '',
       'password': '',
-      'birthday': '',
+      'title': '',
       'phone': ''
     }
     this.updateState = this.updateState.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
-
-  // handleChange(e) {
-  //   console.log(e.target);
-  //   this.setState({temperature: e.target.value});
-  // }
 
   updateState(e){
     this.setState({[e.target.id]: e.target.value},()=>{
@@ -48,19 +51,14 @@ class Signup extends Component {
     });
   }
 
-  // componentDidMount(){
-  //   $('.datepicker').pickadate({
-  //       selectMonths: true,
-  //       selectYears: 15,
-  //       today: 'Today',
-  //       clear: 'Clear',
-  //       close: 'Ok',
-  //       closeOnSelect: false
-  //   });
-  //
-  // }
+  resetState(e){
+    this.setState({title: '',phone: ''},()=>{
+      console.log('done');
+    });
+  }
+
   render(){
-    const stateProps = this.state
+    const stateProps = this.state;
     return(
       <div style={{marginTop: 6 + 'em'}}>
         <div className="valign">
@@ -72,12 +70,12 @@ class Signup extends Component {
                                <span className="card-title black-text">Sign Up</span>
                                <form>
                                  <Step1 triggerStateupdate={this.updateState}/>
-                                 <CheckForStep2 {...stateProps}/>
-                                 <CheckForStep3 {...stateProps} triggerStateupdate={this.updateState}/>
+                                 <CheckForStep2 {...stateProps} triggerStateUpdateRef={this.updateState} triggerStateResetRef={this.resetState}/>
+                                 <CheckForStep3 {...stateProps} triggerStateUpdateRef={this.updateState} triggerStateResetRef={this.resetState}/>
                                </form>
                             </div>
                             <div className="card-action">
-                               <input type="submit" className="btn" value="Login"/>
+                              <CheckForSubmit {...stateProps}/>
                             </div>
                             <p className='center-align'>Already have an account? <Link to='/login'>Login</Link> here!</p>
                          </div>
