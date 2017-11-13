@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, { Component  } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { fetchData } from '../actions';
 import $ from 'jquery';
 
@@ -23,7 +22,7 @@ class Dashboard extends Component {
   renderData(){
     return _.map(this.props.timezones, timezone => {
       return(
-          <div className="col s12 m4">
+          <div key={timezone.id} className="col s12 m4">
             <div className="data-obj card blue-grey darken-1">
               <div className="card-content white-text">
                 <span className="card-title">{timezone.name}</span>

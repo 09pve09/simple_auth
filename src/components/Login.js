@@ -1,7 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
 
-class Login extends Component {
+class LoginForm extends Component {
+  renderTitleField(field){
+    console.log(field);
+    return (
+      <div>
+        <input
+          type={field.type}
+          id={field.name}
+          className="validate"
+          {...field.input}
+        />
+        <label htmlFor={field.name}>{field.label}</label>
+        <span className="pink-text text-darken-3">{field.meta.touched ? field.meta.error : ''}</span>
+      </div>
+    )
+  }
+
   render(){
     return(
       <div style={{marginTop: 3 + 'em'}}>
@@ -15,14 +32,22 @@ class Login extends Component {
                                <form>
                                   <div className="row">
                                     <div className="input-field col s12">
-                                      <input id="email" type="email" className="validate"/>
-                                      <label htmlFor="email">Email</label>
+                                      <Field
+                                        label='Email'
+                                        type='email'
+                                        name="email"
+                                        component={this.renderTitleField}
+                                      />
                                     </div>
                                   </div>
                                   <div className="row">
                                     <div className="input-field col s12">
-                                      <input id="password" type="password" className="validate"/>
-                                      <label htmlFor="password">Password</label>
+                                      <Field
+                                        label='Password'
+                                        type='password'
+                                        name="password"
+                                        component={this.renderTitleField}
+                                      />
                                     </div>
                                   </div>
                                </form>
@@ -41,5 +66,24 @@ class Login extends Component {
   }
 }
 
+function validate(values){
+  const errors = {};
 
-export default Login;
+  if (!values.email){
+    errors.email = "Enter an email"
+  };
+  if(values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
+    errors.email = 'Invalid email address'
+  }
+  if (!values.password){
+    errors.password = "Enter a password"
+  };
+
+  return errors;
+}
+
+
+export default reduxForm({
+  validate: validate,
+  form: 'valuesForSignUpForm',
+})(LoginForm);

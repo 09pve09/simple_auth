@@ -134,7 +134,6 @@ SignUpForm = connect(state => {
 export default reduxForm({
   validate: validate,
   form: 'valuesForSignUpForm',
-  destroyOnUnmount: true
 })(
   connect(null, {createUser})(SignUpForm)
 );

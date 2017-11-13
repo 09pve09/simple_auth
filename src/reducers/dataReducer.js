@@ -6,7 +6,6 @@ export default function (state = {}, action){
   case FETCH_DATA:
     return _.mapKeys(action.payload.data, 'name');
   default:
-    console.log(action.type);
     return state;
   }
 }
