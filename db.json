@@ -5,7 +5,9 @@
       "first_name": "Example",
       "last_name": "Example",
       "email": "test@gmail.com",
-      "password": "test123"
+      "password": "test123",
+      "title": "Test Account",
+      "phone": "12345678"
     }
   ]
   ,

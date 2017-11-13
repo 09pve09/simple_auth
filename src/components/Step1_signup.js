@@ -1,57 +1,69 @@
 import React, { Component  } from 'react';
+import { Field } from 'redux-form';
 
 class Step1 extends Component {
+  renderTitleField(field){
+    console.log(field);
+    return (
+      <div>
+        <input
+          type={field.type}
+          id={field.name}
+          className="validate"
+          {...field.input}
+        />
+        <label htmlFor={field.name}>{field.label}</label>
+        {field.meta.error}
+      </div>
+    )
+  }
 
   render(){
+
     return(
       <div>
         <div className="row">
           <div className="input-field col s6">
-            <input
-              id="first_name"
+            <Field
+              label='First Name'
               type="text"
-              className="validate"
-              onChange={this.props.triggerStateupdate}
+              name="first_name"
+              component={this.renderTitleField}
             />
-            <label for="first_name">First Name</label>
           </div>
           <div className="input-field col s6">
-            <input
-              id="last_name"
+            <Field
+              label='Last Name'
               type="text"
-              className="validate"
-              onChange={this.props.triggerStateupdate}
+              name="last_name"
+              component={this.renderTitleField}
             />
-            <label for="last_name">Last Name</label>
           </div>
          </div>
          <div className="row">
            <div className="input-field col s12">
-             <input
-               id="email"
-               type="email"
-               className="validate"
-               onChange={this.props.triggerStateupdate}
+             <Field
+               label='Email'
+               type='email'
+               name="email"
+               component={this.renderTitleField}
              />
-             <label for="email">Email</label>
            </div>
          </div>
          <div className="row">
            <div className="input-field col s12">
-             <input
-               id="password"
-               type="password"
-               className="validate"
-               onChange={this.props.triggerStateupdate}
-              //  onChange = {event => this.setState({ password: event.target.value })}
+             <Field
+               label='Password'
+               type='password'
+               name="password"
+               component={this.renderTitleField}
              />
-             <label for="password">Password</label>
            </div>
          </div>
-         {/* <input type="submit" className="btn" onClick={()=>this.printProps()} value='PRINT PROPS'/> */}
       </div>
     );
   }
 }
+
 
 export default Step1;
