@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
-// import loadjs from 'loadjs';
-import $ from 'jquery';
+import { createUser } from '../actions';
+
+
 import Step1 from './Step1_signup';
 import Step2 from './Step2_signup';
 import Step3 from './Step3_signup';
@@ -22,45 +23,51 @@ class SignUpForm extends Component {
   }
 
   onSubmit(values){
-    console.log(values);
+    this.props.createUser(values, () => {
+      this.props.history.push('/');
+    });
+  }
+
+  checkForStep2(){
+    if( this.props.first_name && this.props.last_name && this.props.email && this.props.password){
+      return true;
+    }
+    return false;
+  }
+
+  checkForStep3(){
+    if( this.props.first_name &&this.props.last_name && this.props.email && this.props.password && this.props.title){
+      return true;
+    }
+    return false;
+  }
+
+  btnClassSubmit(){
+    let defaultClasses = 'btn waves-effect waves-light'
+    if(this.checkForStep3() && this.props.phone){
+      return defaultClasses;
+    }
+    return defaultClasses + " disabled";
   }
 
   render(){
-    // const stateProps = this.state;
-    const {
-      first_name,
-      last_name,
-      email,
-      password,
-      title,
-      phone,
-      handleSubmit
-    } = this.props
-    // const { handleSubmit } = this.props;
+    const { handleSubmit } = this.props;
     return(
-      <div style={{marginTop: 6 + 'em'}}>
+      <div style={{marginTop: 3 + 'em'}}>
         <div className="valign">
                 <div className="container">
                    <div className="row">
                       <div className="col s12 m6 offset-m3">
-                         <div className="card">
+                         <div className="card blue-grey lighten-5">
                            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                             <div className="card-content">
                                <span className="card-title black-text">Sign Up</span>
-
                                  <Step1 triggerStateUpdate={this.updateState}/>
-                                 {/* <CheckForStep2 {...stateProps} triggerStateUpdateRef={this.updateState} triggerStateResetRef={this.resetState}/>
-                                 <CheckForStep3 {...stateProps} triggerStateUpdateRef={this.updateState} triggerStateResetRef={this.resetState}/> */}
-                                 {first_name && last_name && email && password && (
-                                  <Step2/>
-                                 )}
-                                 {title && (
-                                  <Step3/>
-                                 )}
+                                 {this.checkForStep2() ? <Step2/> : null}
+                                 {this.checkForStep3() ? <Step3/> : null}
                             </div>
                             <div className="card-action">
-                              {/* <CheckForSubmit {...stateProps}/> */}
-                              <button type="submit" className="btn waves-effect waves-light">Submit</button>
+                              <button type="submit" className={this.btnClassSubmit()}>Submit</button>
                             </div>
                           </form>
                             <p className='center-align'>Already have an account? <Link to='/login'>Login</Link> here!</p>
@@ -87,14 +94,23 @@ function validate(values){
   if (!values.email){
     errors.email = "Enter an email"
   };
+  if(values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
+    errors.email = 'Invalid email address'
+  }
   if (!values.password){
     errors.password = "Enter a password"
+  };
+  if (values.password && values.password.length < 6){
+    errors.password = "Password should be at least 6 characters, sorry:("
   };
   if (!values.title){
     errors.title = "Enter a job title"
   };
   if (!values.phone){
     errors.phone = "Enter a phone number"
+  };
+  if (values.phone && values.phone.length != 10){
+    errors.phone = "Enter a proper phone number(ex.1234567890)"
   };
 
   return errors;
@@ -117,5 +133,8 @@ SignUpForm = connect(state => {
 
 export default reduxForm({
   validate: validate,
-  form: 'valuesForSignUpForm'
-})(SignUpForm);
+  form: 'valuesForSignUpForm',
+  destroyOnUnmount: true
+})(
+  connect(null, {createUser})(SignUpForm)
+);

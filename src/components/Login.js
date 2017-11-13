@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 class Login extends Component {
   render(){
     return(
-      <div style={{marginTop: 6 + 'em'}}>
+      <div style={{marginTop: 3 + 'em'}}>
         <div className="valign">
                 <div className="container">
                    <div className="row">
                       <div className="col s12 m6 offset-m3">
-                         <div className="card">
+                         <div className="card blue-grey lighten-5">
                             <div className="card-content">
                                <span className="card-title black-text">Login</span>
                                <form>

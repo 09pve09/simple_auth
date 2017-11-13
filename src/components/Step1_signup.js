@@ -13,7 +13,7 @@ class Step1 extends Component {
           {...field.input}
         />
         <label htmlFor={field.name}>{field.label}</label>
-        {field.meta.error}
+        <span className="pink-text text-darken-3">{field.meta.touched ? field.meta.error : ''}</span>
       </div>
     )
   }

@@ -12,20 +12,17 @@ class Step3 extends Component {
           {...field.input}
         />
         <label htmlFor={field.name}>{field.label}</label>
-        {field.meta.error}
+        <span className="pink-text text-darken-3">{field.meta.touched ? field.meta.error : ''}</span>
       </div>
     )
   }
-  // componentWillUnmount(){
-  //   this.props.triggerStateResetRef()
-  // }
 
   render(){
     return(
       <div className="input-field s12">
         <Field
           label='Phone Number'
-          type="text"
+          type="number"
           name="phone"
           component={this.renderTitleField}
         />
