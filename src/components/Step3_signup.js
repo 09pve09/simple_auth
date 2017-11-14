@@ -2,7 +2,7 @@ import React, { Component  } from 'react';
 import { Field } from 'redux-form';
 class Step3 extends Component {
   renderTitleField(field){
-    console.log(field);
+    // console.log(field);
     return (
       <div>
         <input

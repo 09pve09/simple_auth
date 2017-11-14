@@ -37,7 +37,7 @@ export const fetchUser = () => dispatch => {
 
 export function findUser(values, callback){
   return function(dispatch){
-    console.log(`${ROOT_URL}/users?email=${values.email}&password=${values.password}`);
+    // console.log(`${ROOT_URL}/users?email=${values.email}&password=${values.password}`);
     axios
     .get(`${ROOT_URL}/users?email=${values.email}&password=${values.password}`)
     .then(res=>dispatch({type: FIND_USER, payload: res.data}))
@@ -47,7 +47,7 @@ export function findUser(values, callback){
 
 export function authUser(values, callback){
   return function(dispatch){
-    console.log('creating an auth action...');
+    // console.log('creating an auth action...');
     axios
     .post(`${ROOT_URL}/current_user`, values)
     .then(res=>dispatch({type: AUTH_USER, payload: res}))
@@ -58,7 +58,7 @@ export function authUser(values, callback){
 
 export function logoutUser(callback){
   return function(dispatch){
-    console.log('creating a logout action');
+    // console.log('creating a logout action');
     axios
     .post(`${ROOT_URL}/current_user`, {})
     .then(res=>dispatch({type: LOGOUT_USER, payload: res}))

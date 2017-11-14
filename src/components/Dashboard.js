@@ -68,7 +68,7 @@ class Dashboard extends Component {
   }
 
   checkPermission(){
-    console.log('checkPermission', this.props.auth);
+    // console.log('checkPermission', this.props.auth);
     switch (this.props.auth){
       case null:
         return this.preLoader();
@@ -87,7 +87,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps({data, auth}){
-  console.log("DASHBOARD's PROPS:", {data, auth});
+  // console.log("DASHBOARD's PROPS:", {data, auth});
   if(auth && auth.status){
     return {timezones: data, auth: auth.data};
   }

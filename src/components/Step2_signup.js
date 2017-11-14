@@ -1,10 +1,9 @@
 import React, { Component  } from 'react';
-import { Field, change } from 'redux-form';
-import $ from 'jquery';
+import { Field } from 'redux-form';
 
 class Step2 extends Component {
   renderTitleField(field){
-    console.log(field.input.value);
+    // console.log(field.input.value);
 
     return (
       <div>
@@ -21,7 +20,7 @@ class Step2 extends Component {
   }
 
   componentWillUnmount(){
-    console.log('Umnounting...11111');
+    // console.log('Umnounting...11111');
     // dispatch(change('SignUpForm', 'title', ''))
   };
 

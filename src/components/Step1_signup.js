@@ -3,7 +3,7 @@ import { Field } from 'redux-form';
 
 class Step1 extends Component {
   renderTitleField(field){
-    console.log(field);
+    // console.log(field);
     return (
       <div>
         <input

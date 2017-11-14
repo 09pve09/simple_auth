@@ -8,7 +8,7 @@ import { findUser, authUser } from '../actions';
 class LoginForm extends Component {
 
   renderTitleField(field){
-    console.log(field);
+    // console.log(field);
     return (
       <div>
         <input
@@ -34,18 +34,18 @@ class LoginForm extends Component {
 
 
   onSubmit(values){
-    console.log('SUBMITTING ', values);
+    // console.log('SUBMITTING ', values);
     this.props.findUser(values, () => {
-      console.log('done finding user');
-      console.log('trying to auth user');
-      console.log(this.props.user);
+      // console.log('done finding user');
+      // console.log('trying to auth user');
+      // console.log(this.props.user);
       if(typeof this.props.user === 'object'){
         this.props.authUser(this.props.user,()=>{
-          console.log('done');
+          // console.log('done');
         })
       }
       else{
-        console.log('failed');
+        // console.log('failed');
       }
     });
   }
@@ -53,7 +53,7 @@ class LoginForm extends Component {
   showLoginError(){
     switch(this.props.login_error){
       case true:
-        console.log('TRUE');
+        // console.log('TRUE');
         return ( <span className="pink-text text-darken-3">Couldnt Find a User.Wrong email/password</span>)
       default:
         return ''
@@ -147,7 +147,7 @@ const selector = formValueSelector('valuesForLoginForm');
 
 LoginForm = connect(state => {
   const { email, password } = selector(state, 'email', 'password');
-  console.log('state:',email, password);
+  // console.log('state:',email, password);
   return {
     email,
     password
@@ -155,7 +155,7 @@ LoginForm = connect(state => {
 })(LoginForm)
 
 function mapStateToProps({ auth, user }){
-  console.log(user);
+  // console.log(user);
   return {auth: auth, login_error: user, user: user};
 }
 

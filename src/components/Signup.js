@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
-import { createUser } from '../actions';
+import { createUser, findUser, authUser } from '../actions';
 import { Redirect } from 'react-router';
 
 
@@ -25,7 +25,20 @@ class SignUpForm extends Component {
 
   onSubmit(values){
     this.props.createUser(values, () => {
-      this.props.history.push('/');
+      // this.props.history.push('/');
+      this.props.findUser(values, () => {
+        // console.log('done finding user');
+        // console.log('trying to auth user');
+        // console.log(this.props.user);
+        if(typeof this.props.user === 'object'){
+          this.props.authUser(this.props.user,()=>{
+            // console.log('done');
+          })
+        }
+        else{
+          // console.log('failed');
+        }
+      });
     });
   }
 
@@ -127,7 +140,7 @@ function validate(values){
   if (!values.phone){
     errors.phone = "Enter a phone number"
   };
-  if (values.phone && values.phone.length != 10){
+  if (values.phone && values.phone.length !== 10){
     errors.phone = "Enter a proper phone number(ex.1234567890)"
   };
 
@@ -138,7 +151,7 @@ const selector = formValueSelector('valuesForSignUpForm');
 
 SignUpForm = connect(state => {
   const { first_name, last_name, email, password, title, phone } = selector(state, 'first_name', 'last_name', 'email', 'password', 'title', 'phone');
-  console.log('state:',first_name, last_name, email, password, title, phone);
+  // console.log('state:',first_name, last_name, email, password, title, phone);
   return {
     first_name,
     last_name,
@@ -149,13 +162,13 @@ SignUpForm = connect(state => {
   }
 })(SignUpForm)
 
-function mapStateToProps({ auth }){
-  return {auth: auth};
+function mapStateToProps({ auth, user}){
+  return {auth: auth, user: user};
 }
 
 export default reduxForm({
   validate: validate,
   form: 'valuesForSignUpForm',
 })(
-  connect(mapStateToProps, {createUser})(SignUpForm)
+  connect(mapStateToProps, { createUser, findUser, authUser })(SignUpForm)
 );
