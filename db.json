@@ -1,14 +1,5 @@
 {
-  "current_user": {
-    "id": 1,
-    "first_name": "Example",
-    "last_name": "Example",
-    "email": "test@gmail.com",
-    "password": "test123",
-    "title": "Test Account",
-    "phone": "12345678"
-  },
-
+  "current_user": {},
   "users": [
     {
       "id": 1,
@@ -20,25 +11,15 @@
       "phone": "12345678"
     },
     {
-      "first_name": "Khusan",
-      "last_name": "Azlarov",
-      "email": "khusan@azlarov.com",
+      "first_name": "Victor",
+      "last_name": "Pak",
+      "email": "victorpaksf@gmail.com",
       "password": "Joker2352",
       "title": "Engineer",
       "phone": "4156021336",
-      "id": 2
-    },
-    {
-      "first_name": "Zhenya",
-      "last_name": "Ovs",
-      "email": "zhenya@ovs.com",
-      "password": "Joker2352",
-      "title": "Lol",
-      "phone": "4156021336",
-      "id": 3
+      "id": 6
     }
   ],
-
   "timezones": [
     {
       "id": 1,

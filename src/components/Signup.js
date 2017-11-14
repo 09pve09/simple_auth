@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { createUser } from '../actions';
+import { Redirect } from 'react-router';
 
 
 import Step1 from './Step1_signup';
@@ -50,7 +51,18 @@ class SignUpForm extends Component {
     return defaultClasses + " disabled";
   }
 
-  render(){
+  checkPermission(){
+    switch (this.props.auth){
+      case null:
+        return 'loading...';
+      case false:
+        return (<div>{ this.renderComponent() }</div>)
+      default:
+        return <Redirect to='/'/>;
+    }
+  }
+
+  renderComponent(){
     const { handleSubmit } = this.props;
     return(
       <div style={{marginTop: 3 + 'em'}}>
@@ -77,6 +89,12 @@ class SignUpForm extends Component {
                 </div>
             </div>
       </div>
+    );
+  }
+
+  render(){
+    return(
+      this.checkPermission()
     );
   }
 }
@@ -131,9 +149,13 @@ SignUpForm = connect(state => {
   }
 })(SignUpForm)
 
+function mapStateToProps({ auth }){
+  return {auth: auth};
+}
+
 export default reduxForm({
   validate: validate,
   form: 'valuesForSignUpForm',
 })(
-  connect(null, {createUser})(SignUpForm)
+  connect(mapStateToProps, {createUser})(SignUpForm)
 );
