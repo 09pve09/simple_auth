@@ -9,42 +9,6 @@
       "password": "test123",
       "title": "Test Account",
       "phone": "12345678"
-    },
-    {
-      "first_name": "Victor",
-      "last_name": "Pak",
-      "email": "victorpaksf@gmail.com",
-      "password": "Joker2352",
-      "title": "Engineer",
-      "phone": "4156021336",
-      "id": 6
-    },
-    {
-      "first_name": "Victor",
-      "last_name": "Pak",
-      "email": "09pve09@gmail.com",
-      "password": "Joker2352",
-      "title": "Engineer",
-      "phone": "4156021336",
-      "id": 7
-    },
-    {
-      "first_name": "Connie",
-      "last_name": "Chu",
-      "email": "conniechu929@hotmail.com",
-      "password": "Joker2352",
-      "title": "Engineer",
-      "phone": "4156021336",
-      "id": 8
-    },
-    {
-      "first_name": "Connie",
-      "last_name": "Chu",
-      "email": "conniechu929@hotmail.com",
-      "password": "Joker2352",
-      "title": "Engineer",
-      "phone": "4156021336",
-      "id": 9
     }
   ],
   "timezones": [
