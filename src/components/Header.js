@@ -55,7 +55,7 @@ class Header extends Component {
     return(
       <div>
         <nav>
-          <div className="nav-wrapper">
+          <div className="nav-wrapper teal darken-1">
             <Link to="/" className="brand-logo"> Simple Auth</Link>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               {this.renderContent()}
